@@ -2,7 +2,10 @@ const reddit = require('../reddit');
 const lib = require('lib');
 
 const KEYWORDS = ['bot'];
-const RESPONSE = 'testing 123';
+const RESPONSE = `testing 123
+
+  ^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment
+`;
 
 /**
 * @returns {any}
@@ -24,7 +27,7 @@ module.exports = (context, callback) => {
               words: comment.body.toLowerCase().split(' ')
             };
           });
-          
+
           let validComments = comments.filter(comment => {
             return comment.words.some(word => {
               return (
@@ -32,7 +35,7 @@ module.exports = (context, callback) => {
               );
             });
           });
-          
+
           let replyPromises = validComments.map(comment => {
             return lib[`${context.service.identifier}.reply`](
               comment.name,
