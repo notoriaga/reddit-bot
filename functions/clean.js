@@ -1,5 +1,5 @@
-const reddit = require("../reddit");
-const lib = require("lib");
+const reddit = require('../reddit');
+const lib = require('lib');
 
 /**
 * Removes all comments from the bot with a score below n
@@ -11,7 +11,7 @@ module.exports = (n, context, callback) => {
     .getUser(process.env.REDDIT_USERNAME)
     .getComments()
     .then(comments => {
-      let promises = comments
+      let deletePromises = comments
         .filter(comment => comment.score < n)
         .map(comment => {
           return lib[`${context.service.identifier}.delete`](
@@ -21,12 +21,11 @@ module.exports = (n, context, callback) => {
           });
         });
 
-      Promise.all(promises).then(results => {
+      Promise.all(deletePromises).then(results => {
         return callback(null, results);
       });
     })
     .catch(error => {
-      console.error(error);
       return callback(error);
     });
 };

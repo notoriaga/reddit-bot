@@ -1,4 +1,4 @@
-const reddit = require("../reddit");
+const reddit = require('../reddit');
 
 /**
 * Returns comment tree of a thread
@@ -18,7 +18,6 @@ module.exports = (thread, limit = 0, depth = 0, context, callback) => {
       return callback(null, results.comments);
     })
     .catch(error => {
-      console.error(error);
       return callback(error);
     });
 };

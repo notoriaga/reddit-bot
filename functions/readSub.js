@@ -1,4 +1,4 @@
-const reddit = require("../reddit");
+const reddit = require('../reddit');
 
 /**
 * Returns first n post of subreddit
@@ -19,7 +19,7 @@ module.exports = (subreddit, sorting = 'hot', context, callback) => {
           console.error(error);
           return callback(error);
         });
-        break;
+      break;
     case 'new':
       reddit
         .getSubreddit(subreddit)
@@ -31,7 +31,7 @@ module.exports = (subreddit, sorting = 'hot', context, callback) => {
           console.error(error);
           return callback(error);
         });
-        break;
+      break;
     case 'top':
       reddit
         .getSubreddit(subreddit)
@@ -43,8 +43,8 @@ module.exports = (subreddit, sorting = 'hot', context, callback) => {
           console.error(error);
           return callback(error);
         });
-        break;
+      break;
     default:
-      return callback(new Error("Not a valid sorting"));
+      return callback(new Error('Not a valid sorting'));
   }
 };

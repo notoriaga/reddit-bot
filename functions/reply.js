@@ -1,4 +1,4 @@
-const reddit = require("../reddit");
+const reddit = require('../reddit');
 
 /**
 * Reply to a top level post or comment
@@ -7,26 +7,24 @@ const reddit = require("../reddit");
 * @returns {any}
 */
 module.exports = (parent, text, context, callback) => {
-  if (parent.startsWith("t1_")) {
+  if (parent.startsWith('t1_')) {
     reddit
       .getComment(parent)
       .reply(text)
-      .then(results => {
-        return callback(null, results);
+      .then(result => {
+        return callback(null, result);
       })
       .catch(error => {
-        console.error(error);
         return callback(error);
       });
   } else {
     reddit
       .getSubmission(parent)
       .reply(text)
-      .then(results => {
-        return callback(null, results);
+      .then(result => {
+        return callback(null, result);
       })
       .catch(error => {
-        console.error(error);
         return callback(error);
       });
   }

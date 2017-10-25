@@ -1,4 +1,4 @@
-const reddit = require("../reddit");
+const reddit = require('../reddit');
 
 /**
 * Remove top level link or comment by id
@@ -6,7 +6,7 @@ const reddit = require("../reddit");
 * @returns {any}
 */
 module.exports = (postID, context, callback) => {
-  if (postID.startsWith("t1_")) {
+  if (postID.startsWith('t1_')) {
     reddit
       .getComment(postID)
       .delete()
