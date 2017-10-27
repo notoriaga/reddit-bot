@@ -1,14 +1,19 @@
 const reddit = require('../reddit');
 
 /**
-* @acl
-*   user__username steve allow 
 * Reply to a top level post or comment
 * @param {string} parent What to reply to
 * @param {string} text Message to post (markdown)
 * @returns {any}
 */
 module.exports = (parent, text, context, callback) => {
+  if (
+    context.user.username !== context.service.path[0] &&
+    context.service.environment !== 'local'
+  ) {
+    return callback(new Error('You are not allow to access this service'));
+  }
+
   if (parent.startsWith('t1_')) {
     reddit
       .getComment(parent)

@@ -2,13 +2,18 @@ const reddit = require('../reddit');
 const lib = require('lib');
 
 /**
-* @acl
-*   user__username steve allow 
 * Removes all comments from the bot with a score below n
 * @param {integer} score
 * @returns {any}
 */
 module.exports = (score, context, callback) => {
+  if (
+    context.user.username !== context.service.path[0] &&
+    context.service.environment !== 'local'
+  ) {
+    return callback(new Error('You are not allow to access this service'));
+  }
+
   reddit
     .getUser(process.env.REDDIT_USERNAME)
     .getComments()
