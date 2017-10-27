@@ -1,13 +1,13 @@
 const reddit = require('../reddit');
 const lib = require('lib');
 
-const KEYWORDS = ['marvin']; // single word strings
+const KEYWORDS = ['hey marvin']; // 
 const RESPONSES = [
   "Here I am, brain the size of a planet, and they tell me to respond to comments on Reddit. Call that job satisfaction? Cause I don't."
-]; // reponse for the keyword with the same index
+]; // response for the keyword with the same index
 const SIGNATURE = `
 
-^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment`; // attached to the end of every post
+^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment`; // attached to the end of every comment
 
 /**
 * Reads newest comments from subreddit and responds if a keywork is found  
@@ -16,10 +16,10 @@ const SIGNATURE = `
 */
 module.exports = (subreddit = 'StdLibBots', context, callback) => {
   if (
-    context.user.username !== context.service.path[0] &&
-    context.service.environment !== 'local'
+    context.service.environment !== 'local' &&
+    context.user.username !== context.service.path[0]
   ) {
-    return callback(new Error('You are not allow to access this service'));
+    return callback(new Error('You are not allowed to access this service'));
   }
 
   lib.utils.storage
@@ -35,14 +35,16 @@ module.exports = (subreddit = 'StdLibBots', context, callback) => {
           let comments = listing.map(comment => {
             return {
               name: comment.name,
-              words: comment.body.toLowerCase().split(' ')
+              body: comment.body.toLowerCase() //.split(' ')
             };
           });
 
           let validComments = comments.filter(comment => {
-            return comment.words.some(word => {
+            return KEYWORDS.some(keyword => {
+              keywordRegex = '\\b' + keyword.replace(' ', '\\b \\b') + '\\b';
               return (
-                KEYWORDS.includes(word) && !(comment.name in commentsRepliedTo)
+                comment.body.match(keywordRegex) &&
+                !(comment.name in commentsRepliedTo)
               );
             });
           });

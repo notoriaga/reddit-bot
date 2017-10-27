@@ -8,10 +8,10 @@ const lib = require('lib');
 */
 module.exports = (score, context, callback) => {
   if (
-    context.user.username !== context.service.path[0] &&
-    context.service.environment !== 'local'
+    context.service.environment !== 'local' &&
+    context.user.username !== context.service.path[0] 
   ) {
-    return callback(new Error('You are not allow to access this service'));
+    return callback(new Error('You are not allowed to access this service'));
   }
 
   reddit
