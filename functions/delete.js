@@ -1,6 +1,8 @@
 const reddit = require('../reddit');
 
 /**
+* @acl
+*   user__username steve allow 
 * Remove top level link or comment by id
 * @param {string} postID
 * @returns {any}

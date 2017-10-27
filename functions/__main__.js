@@ -10,6 +10,8 @@ const SIGNATURE = `
 ^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment`;
 
 /**
+* @acl
+*   user__username steve allow 
 * @param {string} subreddit
 * @returns {any}
 */

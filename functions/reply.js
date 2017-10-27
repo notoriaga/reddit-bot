@@ -1,6 +1,8 @@
 const reddit = require('../reddit');
 
 /**
+* @acl
+*   user__username steve allow 
 * Reply to a top level post or comment
 * @param {string} parent What to reply to
 * @param {string} text Message to post (markdown)

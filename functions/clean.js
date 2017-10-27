@@ -2,6 +2,8 @@ const reddit = require('../reddit');
 const lib = require('lib');
 
 /**
+* @acl
+*   user__username steve allow 
 * Removes all comments from the bot with a score below n
 * @param {integer} score
 * @returns {any}
