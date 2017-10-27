@@ -3,16 +3,16 @@ const lib = require('lib');
 
 /**
 * Removes all comments from the bot with a score below n
-* @param {integer} n
+* @param {integer} score
 * @returns {any}
 */
-module.exports = (n, context, callback) => {
+module.exports = (score, context, callback) => {
   reddit
     .getUser(process.env.REDDIT_USERNAME)
     .getComments()
     .then(comments => {
       let deletePromises = comments
-        .filter(comment => comment.score < n)
+        .filter(comment => comment.score < score)
         .map(comment => {
           return lib[`${context.service.identifier}.delete`](
             comment.name

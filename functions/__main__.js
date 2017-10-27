@@ -8,9 +8,10 @@ const RESPONSE = `testing 123
 `;
 
 /**
+* @param {string} subreddit
 * @returns {any}
 */
-module.exports = (context, callback) => {
+module.exports = (subreddit, context, callback) => {
   lib.utils.storage
     .get('commentsRepliedTo')
     .then(comments => {
@@ -18,7 +19,7 @@ module.exports = (context, callback) => {
     })
     .then(commentsRepliedTo => {
       reddit
-        .getSubreddit('pythonforengineers')
+        .getSubreddit(subreddit)
         .getNewComments({ limit: 25 })
         .then(listing => {
           let comments = listing.map(comment => {

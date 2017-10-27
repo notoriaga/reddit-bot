@@ -8,6 +8,6 @@ const reddit = new snoowrap({
   password: process.env.REDDIT_PASSWORD
 });
 
-reddit.config({ requestDelay: 500, continueAfterRatelimitError: true });
+reddit.config({ requestDelay: 250, continueAfterRatelimitError: true });
 
 module.exports = reddit;
