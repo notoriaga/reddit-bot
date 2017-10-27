@@ -1,17 +1,19 @@
 const reddit = require('../reddit');
 const lib = require('lib');
 
-const KEYWORDS = ['bot'];
-const RESPONSE = `testing 123
+const KEYWORDS = ['marvin'];
+const RESPONSES = [
+  "Here I am, brain the size of a planet, and they tell me to respond to comments on Reddit. Call that job satisfaction? Cause I don't."
+];
+const SIGNATURE = `
 
-  ^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment
-`;
+^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment`;
 
 /**
 * @param {string} subreddit
 * @returns {any}
 */
-module.exports = (subreddit, context, callback) => {
+module.exports = (subreddit = 'StdLibBots', context, callback) => {
   lib.utils.storage
     .get('commentsRepliedTo')
     .then(comments => {
@@ -20,7 +22,7 @@ module.exports = (subreddit, context, callback) => {
     .then(commentsRepliedTo => {
       reddit
         .getSubreddit(subreddit)
-        .getNewComments({ limit: 25 })
+        .getNewComments()
         .then(listing => {
           let comments = listing.map(comment => {
             return {
@@ -38,9 +40,13 @@ module.exports = (subreddit, context, callback) => {
           });
 
           let replyPromises = validComments.map(comment => {
+            let response = RESPONSES.find((response, index) => {
+              return comment.words.includes(KEYWORDS[index]);
+            });
+
             return lib[`${context.service.identifier}.reply`](
               comment.name,
-              RESPONSE
+              response + SIGNATURE
             ).then(result => {
               return result;
             });
