@@ -1,0 +1,28 @@
+{
+  "name": "@steve/reddit-bot",
+  "version": "0.0.1",
+  "publish": true,
+  "description": "",
+  "env": [
+    {
+      "name": "REDDIT_SECRET",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "REDDIT_KEY",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "REDDIT_USERNAME",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "REDDIT_PASSWORD",
+      "defaultValue": "",
+      "description": ""
+    }
+  ]
+}

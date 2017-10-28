@@ -8,7 +8,7 @@ const reddit = require('../reddit');
 module.exports = (postID, context, callback) => {
   if (
     context.service.environment !== 'local' &&
-    context.user.username !== context.service.path[0] 
+    context.user.username !== context.service.path[0]
   ) {
     return callback(new Error('You are not allowed to access this service'));
   }
