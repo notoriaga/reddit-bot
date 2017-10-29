@@ -13,7 +13,7 @@
     "build": "faaslang",
     "name": "steve/reddit-bot",
     "timeout": 10000,
-    "publish": false,
+    "publish": true,
     "personalize": {
       "keys": [],
       "user": ["username"]

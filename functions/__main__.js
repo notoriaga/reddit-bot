@@ -11,6 +11,8 @@ const SIGNATURE = `
 
 /**
 * Reads newest comments from subreddit and responds if a keywork is found  
+* @acl
+*   user__username [username] allow
 * @param {string} subreddit
 * @returns {any}
 */

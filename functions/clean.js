@@ -3,6 +3,8 @@ const lib = require('lib');
 
 /**
 * Removes all comments from the bot with a score below n
+* @acl
+*   user__username [username] allow
 * @param {integer} score
 * @returns {any}
 */
