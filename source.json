@@ -1,11 +1,16 @@
 {
   "name": "@steve/reddit-bot",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publish": true,
   "description": "",
   "env": [
     {
       "name": "AUTH_TOKEN",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "STDLIB_LIBRARY_TOKEN",
       "defaultValue": "",
       "description": ""
     },

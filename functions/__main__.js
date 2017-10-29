@@ -1,5 +1,5 @@
 const reddit = require('../reddit');
-const lib = require('lib');
+const lib = require('lib')(process.env.STDLIB_LIBRARY_TOKEN);
 
 /**
 * Reads the newest comments from subreddit and responds if a keyword is found  
