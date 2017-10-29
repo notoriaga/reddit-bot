@@ -2,19 +2,15 @@ const reddit = require('../reddit');
 
 /**
 * Remove top level link or comment by id
-* @acl
-*   user__username [username] allow
+* @param {string} authToken
 * @param {string} postID
 * @returns {any}
 */
-module.exports = (postID, context, callback) => {
-  if (
-    context.service.environment !== 'local' &&
-    context.user.username !== context.service.path[0]
-  ) {
-    return callback(new Error('You are not allowed to access this service'));
+module.exports = (authToken, postID, context, callback) => {
+  if (authToken !== process.env.AUTH_TOKEN) {
+    return callback(new Error('Invalid auth token'));
   }
-
+  
   if (postID.startsWith('t1_')) {
     reddit
       .getComment(postID)

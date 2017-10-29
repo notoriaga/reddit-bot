@@ -1,27 +1,15 @@
 const reddit = require('../reddit');
 const lib = require('lib');
 
-const KEYWORDS = ['hey marvin']; //
-const RESPONSES = [
-  "Here I am, brain the size of a planet, and they tell me to respond to comments on Reddit. Call that job satisfaction? Cause I don't."
-]; // response for the keyword with the same index
-const SIGNATURE = `
-
-^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment`; // attached to the end of every comment
-
 /**
-* Reads newest comments from subreddit and responds if a keywork is found  
-* @acl
-*   user__username [username] allow
+* Reads the newest comments from subreddit and responds if a keyword is found  
+* @param {string} authToken
 * @param {string} subreddit
 * @returns {any}
 */
-module.exports = (subreddit = 'StdLibBots', context, callback) => {
-  if (
-    context.service.environment !== 'local' &&
-    context.user.username !== context.service.path[0]
-  ) {
-    return callback(new Error('You are not allowed to access this service'));
+module.exports = (authToken, subreddit = 'StdLibBots', context, callback) => {
+  if (authToken !== process.env.AUTH_TOKEN) {
+    return callback(new Error('Invalid auth token'));
   }
 
   lib.utils.storage
@@ -56,6 +44,7 @@ module.exports = (subreddit = 'StdLibBots', context, callback) => {
             });
 
             return lib[`${context.service.identifier}.reply`](
+              authToken,
               comment.name,
               response + SIGNATURE
             ).then(result => {
@@ -79,3 +68,11 @@ module.exports = (subreddit = 'StdLibBots', context, callback) => {
         });
     });
 };
+
+const KEYWORDS = ['hey marvin']; //phrases or single words
+const RESPONSES = [
+  "Here I am, brain the size of a planet, and they tell me to respond to comments on Reddit. Call that job satisfaction? Cause I don't."
+]; // response for the keyword with the same index
+const SIGNATURE = `
+
+^This ^bot ^was ^made ^with ^[StdLib](https://stdlib.com) ^^downvote ^^me ^^to ^^remove ^^this ^^comment`; // attached to the end of every comment

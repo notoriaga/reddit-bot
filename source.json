@@ -1,9 +1,14 @@
 {
   "name": "@steve/reddit-bot",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "publish": true,
   "description": "",
   "env": [
+    {
+      "name": "AUTH_TOKEN",
+      "defaultValue": "",
+      "description": ""
+    },
     {
       "name": "REDDIT_SECRET",
       "defaultValue": "",

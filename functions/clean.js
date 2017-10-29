@@ -3,17 +3,13 @@ const lib = require('lib');
 
 /**
 * Removes all comments from the bot with a score below n
-* @acl
-*   user__username [username] allow
+* @param {string} authToken
 * @param {integer} score
 * @returns {any}
 */
-module.exports = (score, context, callback) => {
-  if (
-    context.service.environment !== 'local' &&
-    context.user.username !== context.service.path[0]
-  ) {
-    return callback(new Error('You are not allowed to access this service'));
+module.exports = (authToken, score, context, callback) => {
+  if (authToken !== process.env.AUTH_TOKEN) {
+    return callback(new Error('Invalid auth token'));
   }
 
   reddit
@@ -24,6 +20,7 @@ module.exports = (score, context, callback) => {
         .filter(comment => comment.score < score)
         .map(comment => {
           return lib[`${context.service.identifier}.delete`](
+            authToken,
             comment.name
           ).then(result => {
             return result;

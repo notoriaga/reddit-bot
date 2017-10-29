@@ -2,20 +2,16 @@ const reddit = require('../reddit');
 
 /**
 * Reply to a top level post or comment
-* @acl
-*   user__username [username] allow
+* @param {string} authToken
 * @param {string} parent What to reply to
 * @param {string} text Message to post (markdown)
 * @returns {any}
 */
-module.exports = (parent, text, context, callback) => {
-  if (
-    context.service.environment !== 'local' &&
-    context.user.username !== context.service.path[0]
-  ) {
-    return callback(new Error('You are not allowed to access this service'));
+module.exports = (authToken, parent, text, context, callback) => {
+  if (authToken !== process.env.AUTH_TOKEN) {
+    return callback(new Error('Invalid auth token'));
   }
-
+  
   if (parent.startsWith('t1_')) {
     reddit
       .getComment(parent)
