@@ -1,6 +1,6 @@
 {
   "name": "@steve/reddit-bot",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "publish": true,
   "description": "",
   "env": [

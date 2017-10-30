@@ -1,7 +1,7 @@
 {
   "name": "reddit-bot",
   "version": "0.0.0",
-  "description": "",
+  "description": "Simple Reddit bot that can read subreddits and respond to comments",
   "author": "steve <steven@stdlib.com>",
   "main": "functions/__main__.js",
   "dependencies": {

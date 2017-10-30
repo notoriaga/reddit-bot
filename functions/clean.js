@@ -1,5 +1,5 @@
 const reddit = require('../reddit');
-const lib = require('lib');
+const lib = require('lib')({ token: process.env.STDLIB_LIBRARY_TOKEN });
 
 /**
 * Removes all comments from the bot with a score below n
